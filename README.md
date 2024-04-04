@@ -7,34 +7,45 @@
 
 Настраиваем репозиторий Node JS
 
+```bash
 curl -sL https://deb.nodesource.com/setup_10.x | bash -
+```
 
 Устанавливаем необходимые компоненты
 
+```bash
 apt-get install -y nodejs git make g++ gcc build-essential
+```
 
 Копируем файлы
 
+```bash
 git clone https://github.com/munrexio/yandex2mqtt.git /mnt/data/root/yandex2mqtt
+```
 
 Задаём права.
 
+```bash
 chown -R root:root /mnt/data/root/yandex2mqtt
+```
 
 Заходим в директорию и запускаем установку
 
-cd /mnt/data/root/yandex2mqtt
-
-npm install
+```bash
+cd /mnt/data/root/yandex2mqtt && npm install
+```
 
 Запускаем мост  (Перед запуском мост нужно настроить)
 
+```bash
 npm start
+```
 
 ## Автозапуск
 
-В папке  /etc/systemd/system/ создайте файл yandex2mqtt.service и впишите в него:
+В папке `/etc/systemd/system/` создайте файл `yandex2mqtt.service` и впишите в него:
 
+```service
 [Unit]
 
 Description=yandex2mqtt
@@ -60,27 +71,29 @@ User=root
 [Install]
 
 WantedBy=multi-user.target
-
+```
 
 Для включения сервиса впишите в консоль:
 
+```bash
 systemctl enable yandex2mqtt.service
-
+```
 
 После этого можно управлять командами:
 
+```bash
 service yandex2mqtt start
 
 service yandex2mqtt stop
 
 service yandex2mqtt restart
-
+```
 
 ## Настройка
 
 Для работы моста необходим валидный ssl сертификат. Если нет своего домена и белого IP адреса можно воспользоваться Dynamic DNS  сервисами. (на пример noip.com). Для получения сертификата можно воспользоваться приложением certbot. 
 
-Все основные настройки моста прописываются в файл config.js. Перед запуском обязательно отредактируйте настройки. 
+Все основные настройки моста прописываются в файл `config.js`. Перед запуском обязательно отредактируйте настройки. 
 
 
 1) MQTT: Прописываем параметры своего MQTT сервера.
